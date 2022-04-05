@@ -1,25 +1,14 @@
 from distutils.log import debug
 from flask import Flask, redirect, render_template, request, session
 from pymysql import connections
-
+from config import *
 import os
 import boto3
 import jinja2
 import cgi
 import pymysql
-import mysql.connector
+
 app = Flask(__name__,template_folder='templates')
-
-#database connection
-def mysqlconnect():
-    # To connect MySQL database
-    conn = pymysql.connect(
-        host='localhost',
-        user='root', 
-        password = "",
-        db='employeedb',
-        )
-
 
 #routes(INITIAL DONE)
 @app.route('/')
@@ -43,14 +32,42 @@ def signUpNew():
     empPassword = request.form['emp_pswd']
     skill = request.form['pri_skill']
     location = request.form['location']
-    empImage = request.files['emp_image_file']
+    emp_image_file= request.files['emp_image_file']
+    
+    insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    cur = db_conn.cursor()
+    
+    if emp_image_file.filename == "":
+        return "Please select a file"
+    
 
     #plugin database
     try :
-        cur = mysql.connection.cursor()
-        insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s, %s)"
         cur.execute(insert_sql,(empID,empName,empPassword,skill,location,empImage))
+        db_conn.commit()
+        
+        # Uplaod image file in S3 #
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        s3 = boto3.resource('s3')
+        
+        try:
+            s3.Bucket(custombucket).put_object(Key=emp_image_file_name_in_s3, Body=emp_image_file)
+            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
 
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                emp_image_file_name_in_s3)
+
+        except Exception as e:
+            return str(e)
+    
     finally:
         cur.close()
 
@@ -102,6 +119,5 @@ def checkIn():
         cur.close()
     return render_template('DoneAttendance.html',emp_name=empName, time=t)
 
-#tochange
-if __name__ == "__main__":
-    app.run(debug==True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80, debug=True)
