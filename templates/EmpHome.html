@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Employee MIS</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="Chrome">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+</head>
+
+	<font color="black" size="5" style="font-family: avenir">
+
+		
+
+		<body  align="center" >
+			<h1 style="color: DodgerBlue">Employee Information Management System</h1>
+			<h2 align="center">Welcome {{name}}}</h2>
+			
+			<form action="EmpMain" method="get">
+				<table align="center">
+					<tr><td>Your Data</td></tr>
+                    <tr>
+						<td>Employee ID:</td><td> {{id}}</td>
+					</tr>
+					<tr>
+						<td>Employee Name:</td><td> {{name}}</td>
+					</tr>
+					
+                    <tr>
+						<td>Primary Skills:</td><td>{{skills}}</td>
+					</tr>
+                    <tr>
+                        <td>Location:</td><td>{{locations}}</td>
+                    </tr>
+                    <tr>
+                        <td>Image: </td><td>{{empImg}}</td>
+                    </tr>
+
+					<tr>
+						
+					</tr>
+				</table>
+
+				<h3>Attendance:</h3><a href="/Attendance">Register Now</a>
+			
+			</form>
+
+		</body>
+	</font>
+
+</html>
