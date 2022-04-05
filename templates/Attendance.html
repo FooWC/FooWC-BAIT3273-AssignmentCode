@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Employee MIS</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="Chrome">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
+</head>
+
+	<font color="black" size="5" style="font-family: avenir">
+
+		
+
+		<body  align="center" >
+			<h1 style="color: DodgerBlue">Employee Information Management System</h1>
+			<h2 align="center">Attendance Check-In</h2>
+			
+			<form action="attendanceEmp" method="POST" >
+				<table align="center">
+					<tr>
+						<input type="text" name="timeNow"id="timeNow">
+                        <script>
+                            var today = new Date();
+                            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                            var dateTime = date+' '+time;
+                            document.getElementById("timeNow").value = dateTime;
+                        </script>
+                        Enter name: <input type="text" name="emp_name" id="emp_name">
+                        
+					</tr>
+					<tr>
+						
+					</tr>
+					<tr>
+						<td></td><td><button type="submit">Sign In</button></td>
+					</tr>
+				</table>
+
+				
+			
+			</form>
+
+		</body>
+	</font>
+
+</html>
