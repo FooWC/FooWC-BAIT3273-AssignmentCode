@@ -117,7 +117,7 @@ def checkIn():
         print(e)
     finally:
         cur.close()
-    return render_template('DoneAttendance.html',emp_name=empName, time=t)
+        return render_template('DoneAttendance.html',emp_name=empName, time=t)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
