@@ -112,7 +112,7 @@ def checkIn():
     try :
         cur = mysql.connection.cursor()
         insert_sql = "INSERT INTO attendance VALUES (%s, %s)"
-        cur.execute(insert_sql,(empName,t))
+        cur.execute(insert_sql,(t,empName))
     except Exception as e:
         print(e)
     finally:
