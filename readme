@@ -11,4 +11,6 @@ cd FooWC-BAIT3273-AssignmentCode
 pip3 install flask
 pip3 install pymysql
 pip3 install boto3
+pip3 install jinja2
+pip3 install cgi
 python3 app.py
