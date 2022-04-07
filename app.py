@@ -76,7 +76,7 @@ def signUpNew():
 
 
 #route (login to main page)
-@app.route('/loginEmp',methods=['GET'])
+@app.route('/loginEmp',methods=['GET','POST'])
 def loginEmp():
     #getvalue from form
     empEmail = request.form['emp_email']    
