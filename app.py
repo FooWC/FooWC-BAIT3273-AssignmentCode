@@ -32,7 +32,7 @@ def signUpNew():
     empPassword = request.form['emp_pswd']
     skill = request.form['pri_skill']
     location = request.form['location']
-    emp_image_file= request.files['emp_image_file']
+    emp_image_file= request.files['image_file']
     
     insert_sql = "INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s, %s)"
     cur = db_conn.cursor()
